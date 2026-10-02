@@ -105,8 +105,6 @@ export default function CatalogPage() {
         </div>
       </div>
 
-      {feedback && <div className="alert alert-info" role="status">{feedback}</div>}
-
       {loading ? (
         <div className="text-center text-muted py-5">Cargando juegos...</div>
       ) : error ? (
@@ -138,6 +136,7 @@ export default function CatalogPage() {
               </div>
             </div>
           ))}
+          {feedback && (<div className="toast-notification" role="status">{feedback} <button className="toast-close-btn" onClick={() => setFeedback('')}>X</button></div>)}
         </div>
       )}
     </div>

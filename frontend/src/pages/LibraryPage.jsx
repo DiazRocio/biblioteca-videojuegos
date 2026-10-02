@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faCheck, faHourglassHalf, faStar } from '@fortawesome/free-solid-svg-icons';
 
 export default function LibraryPage() {
-  const [tab, setTab] = useState('jugando');
+  const [tab, setTab] = useState('pendiente');
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
