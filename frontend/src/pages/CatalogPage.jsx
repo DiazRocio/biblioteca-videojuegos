@@ -88,7 +88,7 @@ export default function CatalogPage() {
           <h2 className="font-cyber text-cyan mb-1">Catálogo Global</h2>
           <p className="text-muted small">Explora y añade juegos a tu colección personal</p>
           <p className="text-muted small mb-0">
-            Datos proporcionados por <a href="https://www.igdb.com/" target="_blank" rel="noreferrer">IGDB</a>.
+            Datos proporcionados por <a href="https://www.freetogame.com/" target="_blank" rel="noreferrer">FreeToGame</a>.
           </p>
         </div>
         <div className="col-md-6">
