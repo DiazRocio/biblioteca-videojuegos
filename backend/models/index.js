@@ -6,6 +6,10 @@ const UsuarioJuego = require('./UsuarioJuego');
 // Definición de relaciones
 Usuario.belongsToMany(Juego, { through: UsuarioJuego, foreignKey: 'usuarioId' });
 Juego.belongsToMany(Usuario, { through: UsuarioJuego, foreignKey: 'juegoId' });
+UsuarioJuego.belongsTo(Usuario, { foreignKey: 'usuarioId' });
+UsuarioJuego.belongsTo(Juego, { foreignKey: 'juegoId' });
+Usuario.hasMany(UsuarioJuego, { foreignKey: 'usuarioId' });
+Juego.hasMany(UsuarioJuego, { foreignKey: 'juegoId' });
 
 const syncDatabase = async () => {
   try {

@@ -1,13 +1,38 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faSearch, faBookmark, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+const readSession = () => {
+  const token = localStorage.getItem('token');
+
+  try {
+    return { token, user: JSON.parse(localStorage.getItem('user') || 'null') };
+  } catch {
+    return { token, user: null };
+  }
+};
+
 export default function Navbar() {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token'); 
+  const [session, setSession] = useState(readSession);
+
+  useEffect(() => {
+    const updateSession = () => setSession(readSession());
+    window.addEventListener('storage', updateSession);
+    window.addEventListener('auth-change', updateSession);
+
+    return () => {
+      window.removeEventListener('storage', updateSession);
+      window.removeEventListener('auth-change', updateSession);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    window.dispatchEvent(new Event('auth-change'));
     navigate('/login');
   };
 
@@ -31,7 +56,7 @@ export default function Navbar() {
                 Catálogo
               </Link>
             </li>
-            {token && (
+            {session.token && (
               <li className="nav-item">
                 <Link className="nav-link font-cyber" to="/library">
                   <FontAwesomeIcon icon={faBookmark} className="me-2 text-magenta" />
@@ -42,11 +67,17 @@ export default function Navbar() {
           </ul>
 
           <div className="d-flex align-items-center gap-3">
-            {token ? (
-              <button onClick={handleLogout} className="btn btn-cyber-magenta btn-sm">
-                <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
-                Salir
-              </button>
+            {session.token ? (
+              <>
+                <span className="navbar-user d-none d-sm-inline-flex align-items-center gap-2">
+                  <FontAwesomeIcon icon={faUser} className="text-cyan" />
+                  {session.user?.username || session.user?.email || 'Jugador'}
+                </span>
+                <button onClick={handleLogout} className="btn btn-cyber-magenta btn-sm">
+                  <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
+                  Salir
+                </button>
+              </>
             ) : (
               <Link to="/login" className="btn btn-cyber-primary btn-sm">
                 <FontAwesomeIcon icon={faUser} className="me-2" />

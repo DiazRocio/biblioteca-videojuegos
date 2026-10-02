@@ -4,7 +4,7 @@ const sequelize = require('../db');
 const Juego = sequelize.define('Juego', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true // Aquí usaremos el ID que viene de la API de RAWG
+    primaryKey: true // Se usa el ID del juego devuelto por IGDB
   },
   nombre: {
     type: DataTypes.STRING,

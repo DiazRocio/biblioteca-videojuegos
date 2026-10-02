@@ -174,3 +174,12 @@ p.text-muted, .text-muted, small.text-muted {
   color: var(--neon-cyan) !important;
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
 }
+
+.navbar-user {
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.auth-feedback {
+  font-size: 0.95rem;
+}
